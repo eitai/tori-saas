@@ -3,8 +3,9 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import DashboardMock, { KPI } from "./DashboardMock";
 import { TOASTS } from "../data/demo";
-import { Check, Bell, Reply, ArrowLeft, Sparkles } from "./icons";
+import { Check, Bell, Reply, ArrowLeft, Sparkles, Play } from "./icons";
 import { scrollToId } from "../lib/scroll";
+import { useOpenDemo } from "../demo/openContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,6 +35,7 @@ const TOAST_ICON = { check: Check, bell: Bell, reply: Reply };
 
 export default function HeroAssembly() {
   const stageRef = useRef<HTMLElement>(null);
+  const openDemo = useOpenDemo();
 
   useLayoutEffect(() => {
     const stage = stageRef.current;
@@ -321,7 +323,7 @@ export default function HeroAssembly() {
             ))}
           </div>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
             <button
               id="hero-cta"
               type="button"
@@ -333,8 +335,17 @@ export default function HeroAssembly() {
             </button>
             <button
               type="button"
+              data-demo-open
+              onClick={openDemo}
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 font-heading text-base font-bold text-indigo-deep shadow-sm ring-1 ring-indigo/25 transition hover:bg-indigo-wash hover:ring-indigo/40"
+            >
+              <Play width={18} height={18} />
+              נסו את המערכת
+            </button>
+            <button
+              type="button"
               onClick={() => scrollToId("how", { focus: true })}
-              className="inline-flex items-center justify-center gap-2 rounded-full px-5 py-3.5 font-heading text-base font-semibold text-ink-soft transition hover:text-ink"
+              className="inline-flex items-center justify-center gap-2 rounded-full px-4 py-3.5 font-heading text-base font-semibold text-ink-soft transition hover:text-ink"
             >
               איך זה עובד?
             </button>

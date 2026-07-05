@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
-import { Menu, Close } from "./icons";
+import { Menu, Close, Play } from "./icons";
 import { scrollToId } from "../lib/scroll";
+import { useOpenDemo } from "../demo/openContext";
 
 const LINKS = [
   { id: "pain", label: "יתרונות" },
@@ -18,6 +19,7 @@ const LINKS = [
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const openDemo = useOpenDemo();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -70,6 +72,19 @@ export default function Nav() {
         <div className="flex items-center gap-2">
           <button
             type="button"
+            data-demo-open
+            onClick={openDemo}
+            className={`hidden items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-bold transition md:inline-flex ${
+              scrolled || open
+                ? "text-indigo-deep ring-1 ring-indigo/30 hover:bg-indigo-wash"
+                : "text-indigo-deep ring-1 ring-indigo/40 hover:bg-white/60"
+            }`}
+          >
+            <Play width={15} height={15} />
+            נסו את המערכת
+          </button>
+          <button
+            type="button"
             onClick={() => go("trial")}
             className="hidden rounded-full bg-indigo px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-indigo/25 transition hover:bg-indigo-deep sm:inline-flex"
           >
@@ -105,8 +120,22 @@ export default function Nav() {
             <li>
               <button
                 type="button"
+                data-demo-open
+                onClick={() => {
+                  setOpen(false);
+                  openDemo();
+                }}
+                className="mt-2 flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-base font-bold text-indigo-deep ring-1 ring-indigo/30"
+              >
+                <Play width={16} height={16} />
+                נסו את המערכת
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
                 onClick={() => go("trial")}
-                className="mt-2 w-full rounded-full bg-indigo px-5 py-3 text-base font-bold text-white"
+                className="w-full rounded-full bg-indigo px-5 py-3 text-base font-bold text-white"
               >
                 ניסיון חינם
               </button>
