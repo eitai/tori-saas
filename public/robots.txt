@@ -1,0 +1,5 @@
+# תורי — https://eitai.github.io/tori-saas/
+User-agent: *
+Allow: /
+
+Sitemap: https://eitai.github.io/tori-saas/sitemap.xml

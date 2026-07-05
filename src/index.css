@@ -1,0 +1,142 @@
+@import "tailwindcss";
+
+/*
+  תורי — product-led design tokens.
+  Light, clean, hi-tech: airy canvas, sharp ink, indigo primary, success green
+  for statuses/toasts, and a dark "product" panel (#0F172A) that makes the mock
+  dashboard read as an app embedded inside the page.
+  Tokens in @theme become CSS vars (var(--color-*)) AND Tailwind utilities
+  (bg-canvas, text-ink, font-heading, ...).
+*/
+@theme {
+  --font-body: "Heebo", system-ui, -apple-system, sans-serif;
+  --font-heading: "Rubik", "Heebo", system-ui, sans-serif;
+
+  --color-canvas: #f7f9fc;
+  --color-ink: #0b1220;
+  --color-ink-soft: #475569;
+  --color-ink-faint: #64748b;
+
+  --color-indigo: #4f46e5;
+  --color-indigo-deep: #4338ca;
+  --color-indigo-mid: #6366f1;
+  --color-indigo-light: #e0e7ff;
+  --color-indigo-wash: #eef1ff;
+
+  --color-success: #10b981;
+  --color-success-deep: #059669;
+  --color-success-wash: #d1fae5;
+
+  --color-amber: #f59e0b;
+  --color-rose: #f43f5e;
+
+  --color-panel: #0f172a;
+  --color-panel-soft: #1e293b;
+  --color-panel-line: #334155;
+
+  --color-line: #e2e8f0;
+  --color-card: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.01em;
+}
+
+/* tabular figures for every number/counter/price */
+.nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Keyboard focus — visible everywhere, never on mouse click */
+:focus-visible {
+  outline: 2px solid var(--color-indigo);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* --- Lenis smooth-scroll base styles --- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* --- decorative keyframes --- */
+.scroll-hint {
+  animation: hint-bob 1.7s ease-in-out infinite;
+}
+@keyframes hint-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+/* live "breathing" glow on the assembled dashboard */
+.live-glow {
+  animation: live-pulse 3.2s ease-in-out infinite;
+}
+@keyframes live-pulse {
+  0%,
+  100% {
+    box-shadow: 0 30px 60px -20px rgba(79, 70, 229, 0.35),
+      0 0 0 1px rgba(148, 163, 184, 0.12);
+  }
+  50% {
+    box-shadow: 0 34px 70px -18px rgba(79, 70, 229, 0.5),
+      0 0 0 1px rgba(99, 102, 241, 0.28);
+  }
+}
+
+/* blinking "live" status dot */
+.live-dot {
+  animation: live-dot 1.6s ease-in-out infinite;
+}
+@keyframes live-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .scroll-hint,
+  .live-glow,
+  .live-dot {
+    animation: none;
+  }
+}
